@@ -12,8 +12,6 @@ import android.widget.RemoteViews;
 
 public class MyWidgetIntentReceiver extends BroadcastReceiver {
 
-	private static int clickCount = 0;
-
 	private Context ctx;
 	SharedPreferences sharedPref;
 
@@ -21,10 +19,6 @@ public class MyWidgetIntentReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		ctx = context;
 		sharedPref = ctx.getSharedPreferences("weather", Context.MODE_PRIVATE);
-
-		// Start the service here
-		Intent wService = new Intent(ctx, AutoStart.class);
-		ctx.sendBroadcast(wService, null);
 
 		if (intent.getAction().equals(
 				"com.weather.widget.intent.action.CHANGE_PICTURE")) {
@@ -39,6 +33,7 @@ public class MyWidgetIntentReceiver extends BroadcastReceiver {
 
 		remoteViews.setTextViewText(R.id.place_name, getPlace());
 		remoteViews.setTextViewText(R.id.place_temp, getTemprature());
+		remoteViews.setTextViewText(R.id.temp_unit, getUnit());
 
 		// REMEMBER TO ALWAYS REFRESH YOUR BUTTON CLICK LISTENERS!!!
 		remoteViews.setOnClickPendingIntent(R.id.widget_button,
@@ -51,6 +46,10 @@ public class MyWidgetIntentReceiver extends BroadcastReceiver {
 	private String getPlace() {
 		String place = sharedPref.getString("place", "");
 		return place;
+	}
+
+	private String getUnit() {
+		return "c";
 	}
 
 	private String getTemprature() {
@@ -75,7 +74,8 @@ public class MyWidgetIntentReceiver extends BroadcastReceiver {
 	}
 
 	private int getImageToSet() {
-		clickCount++;
-		return clickCount % 2 == 0 ? R.drawable.me : R.drawable.wordpress_icon;
+		String icon = sharedPref.getString("icon", "");
+		return ctx.getResources().getIdentifier("" + icon, "drawable",
+				ctx.getPackageName());
 	}
 }

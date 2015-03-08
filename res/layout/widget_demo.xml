@@ -22,9 +22,9 @@
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="7"
-            android:text="Kolkata"
+            android:text=""
             android:textColor="#ffffff"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/place_temp"
@@ -36,9 +36,23 @@
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="7"
-            android:text="32"
+            android:text=""
             android:textColor="#ffffff"
             android:textSize="45sp" />
+
+        <TextView
+            android:id="@+id/temp_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:shadowColor="#2B2B2B"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="7"
+            android:text=""
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -52,8 +66,7 @@
             android:id="@+id/widget_image"
             android:layout_width="60sp"
             android:layout_height="60sp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/me" />
+            android:layout_marginRight="10dp" />
 
         <Button
             android:id="@+id/widget_button"

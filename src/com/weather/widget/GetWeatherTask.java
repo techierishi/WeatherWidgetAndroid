@@ -10,9 +10,11 @@ public class GetWeatherTask extends AsyncTask<String, String, String> {
 	Context ctx;
 
 	String email_id_from_sms;
+	String latLong_url;
 
-	public GetWeatherTask(Context _ctx) {
+	public GetWeatherTask(Context _ctx,String _latong_url) {
 		ctx = _ctx;
+		latLong_url = _latong_url;
 	}
 
 	@Override
@@ -29,7 +31,7 @@ public class GetWeatherTask extends AsyncTask<String, String, String> {
 			Log.d("request!", "starting");
 
 			String json = jsonParser
-					.makeHttpRequest(CC.GETWEATHER, "GET", null);
+					.makeHttpRequest(latLong_url, "GET", null);
 
 			Log.d("Login attempt", json.toString());
 			return json.toString();
