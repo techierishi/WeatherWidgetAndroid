@@ -1,5 +1,7 @@
 package com.weather.widget;
 
+import java.util.Calendar;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -26,7 +28,12 @@ public class MyWidgetIntentReceiver extends BroadcastReceiver {
 		}
 	}
 
-	private void updateWidgetPictureAndButtonListener(Context context) {
+	public MyWidgetIntentReceiver(Context _ctx) {
+		ctx = _ctx;
+		sharedPref = ctx.getSharedPreferences("weather", Context.MODE_PRIVATE);
+	}
+
+	public void updateWidgetPictureAndButtonListener(Context context) {
 		RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
 				R.layout.widget_demo);
 		remoteViews.setImageViewResource(R.id.widget_image, getImageToSet());
@@ -34,6 +41,12 @@ public class MyWidgetIntentReceiver extends BroadcastReceiver {
 		remoteViews.setTextViewText(R.id.place_name, getPlace());
 		remoteViews.setTextViewText(R.id.place_temp, getTemprature());
 		remoteViews.setTextViewText(R.id.temp_unit, getUnit());
+
+		remoteViews.setTextViewText(R.id.humidity, getHumidity());
+
+		remoteViews.setTextViewText(R.id.description, getDescription());
+
+		remoteViews.setTextViewText(R.id.date_today, getDateToday());
 
 		// REMEMBER TO ALWAYS REFRESH YOUR BUTTON CLICK LISTENERS!!!
 		remoteViews.setOnClickPendingIntent(R.id.widget_button,
@@ -46,6 +59,22 @@ public class MyWidgetIntentReceiver extends BroadcastReceiver {
 	private String getPlace() {
 		String place = sharedPref.getString("place", "");
 		return place;
+	}
+
+	private String getDateToday() {
+
+		long timeStamp = (Calendar.getInstance().getTimeInMillis()) / 1000L;
+		return CC.dateFromUTS(timeStamp);
+	}
+
+	private String getHumidity() {
+		String humidity = sharedPref.getString("humidity", "");
+		return humidity;
+	}
+
+	private String getDescription() {
+		String description = sharedPref.getString("description", "");
+		return description;
 	}
 
 	private String getUnit() {

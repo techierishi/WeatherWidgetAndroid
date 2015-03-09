@@ -18,10 +18,6 @@ public class MyWidgetProvider extends AppWidgetProvider {
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager,
 			int[] appWidgetIds) {
 
-		// Start the service here
-		Intent wService = new Intent(context, AutoStart.class);
-		context.sendBroadcast(wService, null);
-
 		RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
 				R.layout.widget_demo);
 		remoteViews.setOnClickPendingIntent(R.id.widget_button,
@@ -31,6 +27,11 @@ public class MyWidgetProvider extends AppWidgetProvider {
 	}
 
 	public static PendingIntent buildButtonPendingIntent(Context context) {
+
+		// Start the service here
+		Intent wService = new Intent(context, AutoStart.class);
+		context.sendBroadcast(wService, null);
+
 		Intent intent = new Intent();
 		intent.setAction("com.weather.widget.intent.action.CHANGE_PICTURE");
 

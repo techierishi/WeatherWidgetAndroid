@@ -86,6 +86,8 @@ public class GetWeatherService extends Service implements
 		stopSelf();
 		saveWeather(str);
 
+		MyWidgetIntentReceiver obj = new MyWidgetIntentReceiver(this);
+		obj.updateWidgetPictureAndButtonListener(GetWeatherService.this);
 	}
 
 	protected void saveWeather(String json) {
@@ -96,7 +98,11 @@ public class GetWeatherService extends Service implements
 
 			String tempr = jObj.getJSONObject("main").getString("temp");
 			String place = jObj.getString("name");
-			String icon = jObj.getJSONArray("weather").getJSONObject(0).getString("icon");
+			String icon = jObj.getJSONArray("weather").getJSONObject(0)
+					.getString("icon");
+			String humidity = jObj.getJSONObject("main").getString("humidity");
+			String descr = jObj.getJSONArray("weather").getJSONObject(0)
+					.getString("description");
 
 			// Toast.makeText(this, " Temprature : " + tempr,
 			// Toast.LENGTH_SHORT)
@@ -108,6 +114,8 @@ public class GetWeatherService extends Service implements
 			editor.putString("temprature", "" + tempr);
 			editor.putString("place", "" + place);
 			editor.putString("icon", "_" + icon);
+			editor.putString("humidity", "humidity : " + humidity.substring(0,2));
+			editor.putString("description", "" + descr);
 			editor.commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();

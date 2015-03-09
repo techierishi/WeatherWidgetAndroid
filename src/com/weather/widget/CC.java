@@ -11,6 +11,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Environment;
+import android.util.Log;
 
 public class CC {
 
@@ -51,5 +52,15 @@ public class CC {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static String dateFromUTS(long timeStamp) {
+		Log.d(CC.LOGTAG, " UTS is >> " + timeStamp);
+		String UNIX_DATE_FORMAT = "dd-MM-yyyy";
+		SimpleDateFormat formatter = new SimpleDateFormat(UNIX_DATE_FORMAT);
+		java.util.Date time = new java.util.Date((long) timeStamp * 1000L);
+
+		Log.d(CC.LOGTAG, " UTS date is >> " + formatter.format(time));
+		return formatter.format(time);
 	}
 }
