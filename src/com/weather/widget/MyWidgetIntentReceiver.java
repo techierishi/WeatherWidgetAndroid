@@ -58,7 +58,7 @@ public class MyWidgetIntentReceiver extends BroadcastReceiver {
 
 	private String getPlace() {
 		String place = sharedPref.getString("place", "");
-		return place;
+		return place.substring(0, 10);
 	}
 
 	private String getDateToday() {
